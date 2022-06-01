@@ -12,7 +12,6 @@ export class Action{
 
     act(){
         this.effect(this.user, this.target);
-        setTimeout(() => this.finished = true, this.delay);
     }
 }
 

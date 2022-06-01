@@ -20,7 +20,7 @@ function setButtons(){
 }
 
 function showHideActions(){
-    if(currentTurn.isPlayer){
+    if(currentTurn !== null && currentTurn.isPlayer){
         document.getElementById("actions").style.display = "block";
     }else{
         document.getElementById("actions").style.display = "none";
@@ -28,19 +28,28 @@ function showHideActions(){
 }
 
 function attackButton(){
-    actionQueue.push(new Action(attack, player, enemy, 1000));
+    let currentAction = new Action(attack, player, enemy, 1000);
+    actionQueue.push(currentAction);
     initiateTurn();
 }
 
 function initiateTurn(){
-    let currentAction = null;
     currentTurn = null;
-    for(let i = 0; i < actionQueue.length; i++){
-        if(currentAction === null || currentAction.finished){
-            currentAction = actionQueue.pop();
+    showHideActions();
+    runActions();
+}
+
+async function runActions(){
+    let currentAction = actionQueue.pop();
+    let myPromise = new Promise(function(resolve){
+        setTimeout(function() {
+            resolve();
             currentAction.act();
-        }
-    }
+            if(actionQueue.length > 0){
+                runActions();
+            }
+        }, currentAction.delay);
+    })
 }
 
 setStatusDisplay();

@@ -15,7 +15,7 @@ class LivingEntity extends Entity{
         this.maxMp = 10;
         this.curMp = 10;
 
-        this.attack = 5;
+        this.attack = 100;
         this.defense = 5;
     }
 }
