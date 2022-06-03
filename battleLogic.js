@@ -5,6 +5,7 @@ const enemy = new Enemy("Green Dragon", false);
 const player = new Player("Hero", true);
 const actionQueue = [];
 let currentTurn = player;
+const turnQueue = [player, enemy];
 
 function setStatusDisplay(){
     document.getElementById("playerHP").innerHTML = "HP: " + player.curHp;
@@ -24,18 +25,20 @@ function showHideActions(){
         document.getElementById("actions").style.display = "block";
     }else{
         document.getElementById("actions").style.display = "none";
+        chooseEnemyAction();
     }
 }
 
 function attackButton(){
     let currentAction = new Action(attack, player, enemy, 1000);
+    document.getElementById("actions").style.display = "none";
     actionQueue.push(currentAction);
-    initiateTurn();
+    initiateAction();
 }
 
-function initiateTurn(){
+function initiateAction(){
     currentTurn = null;
-    showHideActions();
+    turnQueue.push(turnQueue.shift());
     runActions();
 }
 
@@ -45,13 +48,30 @@ async function runActions(){
         setTimeout(function() {
             resolve();
             currentAction.act();
+            setStatusDisplay();
             if(actionQueue.length > 0){
                 runActions();
+            }else{
+                endTurn();
             }
         }, currentAction.delay);
     })
 }
 
+function endTurn(){
+    currentTurn = turnQueue[0];
+    console.log("Turn Order:" + turnQueue[0].name);
+    showHideActions();
+}
+
+function chooseEnemyAction(){
+    let currentAction = new Action(attack, enemy, player, 1000);
+    document.getElementById("actions").style.display = "none";
+    actionQueue.push(currentAction);
+    initiateAction();
+}
+
 setStatusDisplay();
 setNameDisplay();
 setButtons();
+console.log("Turn Order:" + turnQueue[0].name + ", " + turnQueue[1].name);
