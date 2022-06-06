@@ -2,6 +2,7 @@ class Entity{
     constructor(inName, isPlayer){
         this.name = inName;
         this.isPlayer = isPlayer;
+        this.dead = false;
     }
 }
 
@@ -17,6 +18,13 @@ class LivingEntity extends Entity{
 
         this.attack = 100;
         this.defense = 5;
+
+    }
+
+    evaluateStatus(){
+        if(this.curHp <= 0){
+            this.dead = true;
+        }
     }
 }
 

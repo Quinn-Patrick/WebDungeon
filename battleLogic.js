@@ -20,7 +20,11 @@ function setButtons(){
     document.getElementById("atkButton").addEventListener("click", attackButton);
 }
 
-function showHideActions(){
+function initiateTurn(){
+    if(currentTurn.dead){
+        endTurn();
+    }
+
     if(currentTurn !== null && currentTurn.isPlayer){
         document.getElementById("actions").style.display = "block";
     }else{
@@ -38,7 +42,7 @@ function attackButton(){
 
 function initiateAction(){
     currentTurn = null;
-    turnQueue.push(turnQueue.shift());
+    
     runActions();
 }
 
@@ -59,9 +63,16 @@ async function runActions(){
 }
 
 function endTurn(){
+    turnQueue.push(turnQueue.shift());
+    for(let i of turnQueue){
+        i.evaluateStatus();
+        if(enemy.dead){
+            document.getElementById("monsterSprite").style.opacity = 0;
+        }
+    }
     currentTurn = turnQueue[0];
-    console.log("Turn Order:" + turnQueue[0].name);
-    showHideActions();
+    console.log("Turn Order:" + turnQueue[0].name + ", " + turnQueue[1].name);
+    initiateTurn();
 }
 
 function chooseEnemyAction(){
