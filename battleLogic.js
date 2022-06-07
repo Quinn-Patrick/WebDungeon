@@ -1,5 +1,6 @@
 import {Enemy, Player} from "./entityClasses.js";
 import {Action, attack} from "./actions.js";
+import { initiateMessages, appendMessage } from "./message.js";
 
 const enemy = new Enemy("Green Dragon", false);
 const player = new Player("Hero", true);
@@ -20,11 +21,11 @@ function setButtons(){
     document.getElementById("atkButton").addEventListener("click", attackButton);
 }
 
-function initiateTurn(){
+async function initiateTurn(){
+    await initiateMessages();
     if(currentTurn.dead){
         endTurn();
     }
-
     if(currentTurn !== null && currentTurn.isPlayer){
         document.getElementById("actions").style.display = "block";
     }else{
@@ -42,7 +43,6 @@ function attackButton(){
 
 function initiateAction(){
     currentTurn = null;
-    
     runActions();
 }
 
@@ -81,6 +81,8 @@ function chooseEnemyAction(){
     actionQueue.push(currentAction);
     initiateAction();
 }
+
+
 
 setStatusDisplay();
 setNameDisplay();

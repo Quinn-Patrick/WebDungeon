@@ -1,3 +1,4 @@
+import { initiateMessages, appendMessage } from "./message.js";
 class Entity{
     constructor(inName, isPlayer){
         this.name = inName;
@@ -10,8 +11,8 @@ class LivingEntity extends Entity{
     constructor(inName, isPlayer){
         super(inName, isPlayer);
 
-        this.maxHp = 10;
-        this.curHp = 10;
+        this.maxHp = 100;
+        this.curHp = 100;
 
         this.maxMp = 10;
         this.curMp = 10;
@@ -23,6 +24,11 @@ class LivingEntity extends Entity{
 
     evaluateStatus(){
         if(this.curHp <= 0){
+            if(!this.dead){
+                appendMessage(this.name + " was slain!");
+                initiateMessages();
+            }
+
             this.dead = true;
         }
     }
