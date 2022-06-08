@@ -1,20 +1,35 @@
 import {Enemy, Player} from "./entityClasses.js";
 import {Action, attack} from "./actions.js";
-import { initiateMessages, appendMessage } from "./message.js";
+import { initiateMessages, appendMessage, dialoguePromise } from "./message.js";
 
-const enemy = new Enemy("Green Dragon", false);
-const player = new Player("Hero", true);
+const enemy = new Enemy("Green Dragon", false, "greenDragon.png");
+const player = new Player("Hero", true, null);
 const actionQueue = [];
 let currentTurn = player;
 const turnQueue = [player, enemy];
+let messagePromise;
 
 function setStatusDisplay(){
     document.getElementById("playerHP").innerHTML = "HP: " + player.curHp;
     document.getElementById("playerMP").innerHTML = "MP : " + player.curMp;
+    setImageDisplay();
+    setNameDisplay();
 }
 
 function setNameDisplay(){
-    document.getElementById("monsterName").innerHTML = enemy.name;
+    if(!enemy.dead){
+        document.getElementById("monsterName").innerHTML = enemy.name;
+    }else{
+        document.getElementById("monsterName").innerHTML = "Safety";
+    }
+}
+
+function setImageDisplay(){
+    if(!enemy.dead){
+        document.getElementById("monsterSprite").src = enemy.image;
+    }else{
+        document.getElementById("monsterSprite").style.display = none;
+    }
 }
 
 function setButtons(){
@@ -22,8 +37,8 @@ function setButtons(){
 }
 
 async function initiateTurn(){
-    await initiateMessages();
-    if(currentTurn.dead){
+    await dialoguePromise;
+    if(currentTurn !== null && currentTurn.dead){
         endTurn();
     }
     if(currentTurn !== null && currentTurn.isPlayer){
@@ -85,6 +100,6 @@ function chooseEnemyAction(){
 
 
 setStatusDisplay();
-setNameDisplay();
+
 setButtons();
 console.log("Turn Order:" + turnQueue[0].name + ", " + turnQueue[1].name);

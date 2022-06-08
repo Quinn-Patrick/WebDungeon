@@ -1,6 +1,6 @@
 const messageQueue = [];
 let dialogueActive = false;
-let dialoguePromise;
+export let dialoguePromise;
 
 export function initiateMessages(){
     if(!dialogueActive){
@@ -16,12 +16,13 @@ async function displayMessage(){
         document.getElementById("dialogue").innerHTML = content;
         document.getElementById("advanceDialogue").innerHTML = '<button id = "nextButton">Next</button>';
         document.getElementById("nextButton").addEventListener("click", function() {
-            resolve();
-            document.getElementById("dialogue").innerHTML = "";
-            document.getElementById("nextButton").remove();
             if(messageQueue.length > 0){
-                displayMessage();
+                let content = messageQueue.shift();
+                document.getElementById("dialogue").innerHTML = content;
             }else{
+                document.getElementById("dialogue").innerHTML = "";
+                document.getElementById("nextButton").remove();
+                resolve();
                 dialogueActive = false;
             }
         });

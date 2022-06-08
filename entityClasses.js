@@ -1,15 +1,16 @@
 import { initiateMessages, appendMessage } from "./message.js";
 class Entity{
-    constructor(inName, isPlayer){
+    constructor(inName, isPlayer, image){
         this.name = inName;
         this.isPlayer = isPlayer;
         this.dead = false;
+        this.image = image;
     }
 }
 
 class LivingEntity extends Entity{
-    constructor(inName, isPlayer){
-        super(inName, isPlayer);
+    constructor(inName, isPlayer, image){
+        super(inName, isPlayer, image);
 
         this.maxHp = 100;
         this.curHp = 100;
@@ -19,7 +20,6 @@ class LivingEntity extends Entity{
 
         this.attack = 100;
         this.defense = 5;
-
     }
 
     evaluateStatus(){
@@ -35,13 +35,13 @@ class LivingEntity extends Entity{
 }
 
 export class Player extends LivingEntity{
-    constructor(inName, isPlayer){
-        super(inName, isPlayer);
+    constructor(inName, isPlayer, image){
+        super(inName, isPlayer, image);
     }
 }
 
 export class Enemy extends LivingEntity{
-    constructor(inName, isPlayer){
-        super(inName, isPlayer);
+    constructor(inName, isPlayer, image){
+        super(inName, isPlayer, image);
     }
 }
