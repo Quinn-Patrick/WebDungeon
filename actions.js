@@ -19,12 +19,12 @@ export class Action{
 export function attack(user, target){
     if(target.dead){
         appendMessage("No target...");
-        initiateMessages();
+        //initiateMessages();
         return;
     }
     let damage = computeDamage(user, target);
     target.curHp -= damage;
     appendMessage(user.name + " attacks!");
     appendMessage(user.name + " hit " + target.name + " for " + damage + " damage!");
-    initiateMessages();
+    //initiateMessages();
 }

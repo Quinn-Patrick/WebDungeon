@@ -17,7 +17,7 @@ function setStatusDisplay(){
 }
 
 function setNameDisplay(){
-    if(!enemy.dead){
+    if(enemy != null && !enemy.dead){
         document.getElementById("monsterName").innerHTML = enemy.name;
     }else{
         document.getElementById("monsterName").innerHTML = "Safety";
@@ -25,10 +25,10 @@ function setNameDisplay(){
 }
 
 function setImageDisplay(){
-    if(!enemy.dead){
+    if(enemy != null && !enemy.dead){
         document.getElementById("monsterSprite").src = enemy.image;
     }else{
-        document.getElementById("monsterSprite").style.display = none;
+        document.getElementById("monsterSprite").style.display = "none";
     }
 }
 
@@ -37,7 +37,7 @@ function setButtons(){
 }
 
 async function initiateTurn(){
-    await dialoguePromise;
+    await initiateMessages();
     if(currentTurn !== null && currentTurn.dead){
         endTurn();
     }
