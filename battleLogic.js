@@ -1,10 +1,11 @@
 import {Enemy, Player} from "./entityClasses.js";
 import {Action, attack} from "./actions.js";
-import { initiateMessages, appendMessage, dialoguePromise } from "./message.js";
+import { initiateMessages, appendMessage } from "./message.js";
+import { stockItem, takeItemByInventoryLocation, item, potionHeal } from "./items.js";
 
 const enemy = new Enemy("Green Dragon", false, "greenDragon.png");
 const player = new Player("Hero", true, null);
-const actionQueue = [];
+export const actionQueue = [];
 let currentTurn = player;
 const turnQueue = [player, enemy];
 let messagePromise;
@@ -51,12 +52,13 @@ async function initiateTurn(){
 
 function attackButton(){
     let currentAction = new Action(attack, player, enemy, 1000);
-    document.getElementById("actions").style.display = "none";
+    
     actionQueue.push(currentAction);
     initiateAction();
 }
 
-function initiateAction(){
+export function initiateAction(){
+    document.getElementById("actions").style.display = "none";
     currentTurn = null;
     runActions();
 }
@@ -97,9 +99,7 @@ function chooseEnemyAction(){
     initiateAction();
 }
 
-
-
 setStatusDisplay();
-
+stockItem(new item(0, "Potion", new Action(potionHeal, player, player, 1000)), 1);
 setButtons();
 console.log("Turn Order:" + turnQueue[0].name + ", " + turnQueue[1].name);

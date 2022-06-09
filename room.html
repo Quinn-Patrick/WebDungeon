@@ -3,6 +3,7 @@
     <body>
         <script src="battleLogic.js" type="module"></script>
         <script src="message.js" type="module"></script>
+        <script src="items.js" type="module"></script>
         <link rel="stylesheet" href="roomStyle.css">
         <div id = "battleWindow">
             <h1 id = "monsterName">
@@ -12,24 +13,23 @@
 
             <div id = "dialogue"></div>
             <div id = "advanceDialogue"></div>
-
+            <div>
+                <p id="playerHP">HP: 0</p>
+                <p id="playerMP">MP: 0</p>
+            </div>
             <div id="actions">
                 <button id="atkButton">Attack</button>
                 <button id="mgcButton">Magic</button>
 
                 <span class="dropdown">
                     <button id="itemButton" class="dropbtn">Item</button>
-                    <div class="dropdown-content">
+                    <div id="itemMenu" class="dropdown-content">
                         <a href="#">Link 1</a>
                         <a href="#">Link 2</a>
                         <a href="#">Link 3</a>
                     </div>
                 </span>
                 <button id="fleButton">Flee</button>
-            </div>
-            <div>
-                <p id="playerHP">HP: 0</p>
-                <p id="playerMP">MP: 0</p>
             </div>
         </div>
     </body>
