@@ -1,4 +1,5 @@
 import {computeDamage} from "./battleUtility.js";
+import { initiateMessages, appendMessage } from "./message.js";
 
 export class Action{
     constructor(effect, user, target, delay){
@@ -12,10 +13,18 @@ export class Action{
 
     act(){
         this.effect(this.user, this.target);
-        setTimeout(() => this.finished = true, this.delay);
     }
 }
 
 export function attack(user, target){
-    target.curHp -= computeDamage(user, target);
+    if(target.dead){
+        appendMessage("No target...");
+        //initiateMessages();
+        return;
+    }
+    let damage = computeDamage(user, target);
+    target.curHp -= damage;
+    appendMessage(user.name + " attacks!");
+    appendMessage(user.name + " hit " + target.name + " for " + damage + " damage!");
+    //initiateMessages();
 }

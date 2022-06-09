@@ -2,12 +2,17 @@
 <html>
     <body>
         <script src="battleLogic.js" type="module"></script>
+        <script src="message.js" type="module"></script>
         <link rel="stylesheet" href="roomStyle.css">
         <div id = "battleWindow">
             <h1 id = "monsterName">
                 Monster
             </h1>
-            <img id = "monsterSprite" src="greenDragon.png"></img>
+            <img id = "monsterSprite"></img>
+
+            <div id = "dialogue"></div>
+            <div id = "advanceDialogue"></div>
+
             <div id="actions">
                 <button id="atkButton">Attack</button>
                 <button id="mgcButton">Magic</button>

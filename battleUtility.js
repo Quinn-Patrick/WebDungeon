@@ -17,7 +17,7 @@ export function computeDamage(user, target){
 
         let damage = Math.floor(Math.random() * range + minDamage);
 
-        console.log("Inflicted " + damage + " to " + target.name);
+        console.log("Inflicted " + damage + " damage to " + target.name + ", " + target.curHp + " Hit Points Left");
 
         return damage;
     }
