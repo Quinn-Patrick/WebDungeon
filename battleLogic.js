@@ -8,7 +8,6 @@ const player = new Player("Hero", true, null);
 export const actionQueue = [];
 let currentTurn = player;
 const turnQueue = [player, enemy];
-let messagePromise;
 
 function setStatusDisplay(){
     document.getElementById("playerHP").innerHTML = "HP: " + player.curHp;
