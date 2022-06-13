@@ -1,4 +1,4 @@
-import { initiateMessages, appendMessage } from "./message.js";
+import { appendMessage } from "./message.js";
 import {actionQueue, initiateAction} from "./battleLogic.js";
 
 const inventory = [];
@@ -58,7 +58,7 @@ function itemHeal(target, amount){
     }else{
         target.curHp += amount;
     }
-    appendMessage(user.name + " recovers " + amount + " hit points!");
+    appendMessage(target.name + " recovers " + amount + " hit points!");
 }
 
 function updateItemMenu(){

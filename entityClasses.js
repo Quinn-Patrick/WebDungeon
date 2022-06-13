@@ -8,7 +8,7 @@ class Entity{
     }
 }
 
-class LivingEntity extends Entity{
+export class LivingEntity extends Entity{
     constructor(inName, isPlayer, image){
         super(inName, isPlayer, image);
 
@@ -20,6 +20,8 @@ class LivingEntity extends Entity{
 
         this.attack = 100;
         this.defense = 5;
+
+        this.spells = [];
     }
 
     evaluateStatus(){
@@ -31,17 +33,5 @@ class LivingEntity extends Entity{
 
             this.dead = true;
         }
-    }
-}
-
-export class Player extends LivingEntity{
-    constructor(inName, isPlayer, image){
-        super(inName, isPlayer, image);
-    }
-}
-
-export class Enemy extends LivingEntity{
-    constructor(inName, isPlayer, image){
-        super(inName, isPlayer, image);
     }
 }

@@ -1,10 +1,10 @@
-import {Enemy, Player} from "./entityClasses.js";
+import {LivingEntity} from "./entityClasses.js";
 import {Action, attack} from "./actions.js";
 import { initiateMessages, appendMessage } from "./message.js";
 import { stockItem, takeItemByInventoryLocation, item, potionHeal } from "./items.js";
 
-const enemy = new Enemy("Green Dragon", false, "greenDragon.png");
-const player = new Player("Hero", true, null);
+const enemy = new LivingEntity("Green Dragon", false, "greenDragon.png");
+const player = new LivingEntity("Hero", true, null);
 export const actionQueue = [];
 let currentTurn = player;
 const turnQueue = [player, enemy];
@@ -88,6 +88,7 @@ function endTurn(){
     }
     currentTurn = turnQueue[0];
     console.log("Turn Order:" + turnQueue[0].name + ", " + turnQueue[1].name);
+    setStatusDisplay();
     initiateTurn();
 }
 
