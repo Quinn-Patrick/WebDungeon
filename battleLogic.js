@@ -2,6 +2,7 @@ import {LivingEntity} from "./entityClasses.js";
 import {Action, attack} from "./actions.js";
 import { initiateMessages, appendMessage } from "./message.js";
 import { stockItem, takeItemByInventoryLocation, item, potionHeal } from "./items.js";
+import { learnSpell, Spell, flames } from "./spells.js";
 
 const enemy = new LivingEntity("Green Dragon", false, "greenDragon.png");
 const player = new LivingEntity("Hero", true, null);
@@ -64,17 +65,26 @@ export function initiateAction(){
 
 async function runActions(){
     let currentAction = actionQueue.pop();
+    let delayTime = 0;
+    if(currentAction === undefined){
+        delayTime = 0;
+    }else{
+        delayTime = currentAction.delay;
+    }
+
     let myPromise = new Promise(function(resolve){
         setTimeout(function() {
             resolve();
-            currentAction.act();
+            if(currentAction !== undefined){
+                currentAction.act();
+            }
             setStatusDisplay();
             if(actionQueue.length > 0){
                 runActions();
             }else{
                 endTurn();
             }
-        }, currentAction.delay);
+        }, delayTime);
     })
 }
 
@@ -101,5 +111,6 @@ function chooseEnemyAction(){
 
 setStatusDisplay();
 stockItem(new item(0, "Potion", new Action(potionHeal, player, player, 1000)), 1);
+learnSpell(player, new Spell(0, "Flames", new Action(flames, player, enemy, 1000), 5));
 setButtons();
 console.log("Turn Order:" + turnQueue[0].name + ", " + turnQueue[1].name);

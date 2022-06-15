@@ -16,13 +16,13 @@
     z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content button {
     background-color: rgb(190, 190, 190);
     text-align: left;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content button:hover {background-color: #ddd;}
 .dropdown:hover .dropdown-content {display: block;}
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
