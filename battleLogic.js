@@ -3,12 +3,9 @@ import {Action, attack} from "./actions.js";
 import { initiateMessages, appendMessage } from "./message.js";
 import { stockItem, takeItemByInventoryLocation, item, potionHeal } from "./items.js";
 import { learnSpell, Spell, flames } from "./spells.js";
+import { Room, enterRoom } from "./rooms.js";
 
-const enemy = new LivingEntity("Green Dragon", false, "greenDragon.png");
-const player = new LivingEntity("Hero", true, null);
-export const actionQueue = [];
-let currentTurn = player;
-const turnQueue = [player, enemy];
+
 
 function setStatusDisplay(){
     document.getElementById("playerHP").innerHTML = "HP: " + player.curHp;
@@ -109,6 +106,14 @@ function chooseEnemyAction(){
     initiateAction();
 }
 
+const player = new LivingEntity("Hero", true, null);
+let currentTurn = player;
+export const actionQueue = [];
+
+export const room = new Room();
+room.enemy = new LivingEntity("Green Dragon", false, "greenDragon.png");
+const enemy = room.enemy;
+const turnQueue = [player, enemy];
 setStatusDisplay();
 stockItem(new item(0, "Potion", new Action(potionHeal, player, player, 1000)), 1);
 learnSpell(player, new Spell(0, "Flames", new Action(flames, player, enemy, 1000), 5));
